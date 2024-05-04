@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  install_dependencies:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,20 +15,13 @@ jobs:
           node-version: '20'
       - name: Install Dependencies
         run: npm install
-
-  test:
-    needs: install_dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Tests
-        run: npm run test
-
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build project
-        run: npm run build
+      steps:
+        - name: Run Tests
+          run: npm run test
+          steps:
+      steps:
+        - name: Build project
+          run: npm run build
 
   deploy:
     needs: build
