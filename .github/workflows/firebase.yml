@@ -18,6 +18,9 @@ jobs:
         run: npm run build
       - name: Run Tests
         run: npm run test
+  
+  deploy:
+      needs: build
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -25,3 +28,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VITE_PROJECT_870BB }}"
           projectId: "vite-project-870bb"
           channelId: live
+      
