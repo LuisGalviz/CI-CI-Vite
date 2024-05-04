@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,19 +14,20 @@ jobs:
           node-version: '20'
       - name: Install Dependencies
         run: npm install
-      - name: Run Tests
-        run: npm run test
       - name: Build project
         run: npm run build
-
+      - name: Run Tests
+        run: npm run test
+  
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VITE_PROJECT_870BB }}"
-          projectId: "vite-project-870bb"
-          channelId: live
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploy to Firebase Hosting
+          uses: FirebaseExtended/action-hosting-deploy@v0
+          with:
+            repoToken: "${{ secrets.GITHUB_TOKEN }}"
+            firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VITE_PROJECT_870BB }}"
+            projectId: "vite-project-870bb"
+            channelId: live
+      
